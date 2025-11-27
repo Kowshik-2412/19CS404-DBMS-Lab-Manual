@@ -1,436 +1,147 @@
-# Experiment 2: DDL Commands
-### Name : KOWSHIK P
-### Reg No : 212224040164
+# ER Diagram Workshop – Submission Template
 
-## AIM
-To study and implement DDL commands and different types of constraints.
+## Objective
+To understand and apply ER modeling concepts by creating ER diagrams for real-world applications.
 
-## THEORY
+## Purpose
+Gain hands-on experience in designing ER diagrams that represent database structure including entities, relationships, attributes, and constraints.
 
-### 1. CREATE
-Used to create a new relation (table).
-
-**Syntax:**
-```sql
-CREATE TABLE (
-  field_1 data_type(size),
-  field_2 data_type(size),
-  ...
-);
-```
-### 2. ALTER
-Used to add, modify, drop, or rename fields in an existing relation.
-(a) ADD
-```sql
-ALTER TABLE std ADD (Address CHAR(10));
-```
-(b) MODIFY
-```sql
-ALTER TABLE relation_name MODIFY (field_1 new_data_type(size));
-```
-(c) DROP
-```sql
-ALTER TABLE relation_name DROP COLUMN field_name;
-```
-(d) RENAME
-```sql
-ALTER TABLE relation_name RENAME COLUMN old_field_name TO new_field_name;
-```
-### 3. DROP TABLE
-Used to permanently delete the structure and data of a table.
-```sql
-DROP TABLE relation_name;
-```
-### 4. RENAME
-Used to rename an existing database object.
-```sql
-RENAME TABLE old_relation_name TO new_relation_name;
-```
-### CONSTRAINTS
-Constraints are used to specify rules for the data in a table. If there is any violation between the constraint and the data action, the action is aborted by the constraint. It can be specified when the table is created (using CREATE TABLE) or after it is created (using ALTER TABLE).
-### 1. NOT NULL
-When a column is defined as NOT NULL, it becomes mandatory to enter a value in that column.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) NOT NULL
-);
-```
-### 2. UNIQUE
-Ensures that values in a column are unique.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) UNIQUE
-);
-```
-### 3. CHECK
-Specifies a condition that each row must satisfy.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) CHECK (logical_expression)
-);
-```
-### 4. PRIMARY KEY
-Used to uniquely identify each record in a table.
-Properties:
-Must contain unique values.
-Cannot be null.
-Should contain minimal fields.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size) PRIMARY KEY
-);
-```
-### 5. FOREIGN KEY
-Used to reference the primary key of another table.
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  column_name data_type(size),
-  FOREIGN KEY (column_name) REFERENCES other_table(column)
-);
-```
-### 6. DEFAULT
-Used to insert a default value into a column if no value is specified.
-
-Syntax:
-```sql
-CREATE TABLE Table_Name (
-  col_name1 data_type,
-  col_name2 data_type,
-  col_name3 data_type DEFAULT 'default_value'
-);
-```
-
-**Question 1**
---
---Write a SQL query to Add a new column named "discount" with the data type DECIMAL(5,2) to the "customer" table.
-
-Sample table: customer
-
- customer_id |   cust_name    |    city    | grade | salesman_id 
--------------+----------------+------------+-------+-------------
-        3002 | Nick Rimando   | New York   |   100 |        5001
-        3007 | Brad Davis     | New York   |   200 |        5001
-        3005 | Graham Zusi    | California |   200 |        5002
- 
-
-For example:
-
-Test	Result
-pragma table_info('customer');
-cid         name         type                               notnull     dflt_value  pk
-----------  -----------  ---------------------------------  ----------  ----------  ----------
-0           customer_id  integer primarykey auto increment  0                       0
-1           cust_name    varchar2(30)                       0                       0
-2           city         varchar(30)                        0                       0
-3           grade        number                             0                       0
-4           salesman_id  number                             0                       0
-5           discount     DECIMAL(5,2)                       0                       0
-
-
-```sql
--- ALTER TABLE CUSTOMER
-ADD discount DECIMAL(5,2);
-```
-
-**Output:**
-
-![Screenshot (56)](https://github.com/user-attachments/assets/7acafeb1-6af0-49ce-895b-0692e3da86df)
-
-
-**Question 2**
 ---
--- Create a table named Employees with the following columns:
 
-EmployeeID as INTEGER
-FirstName as TEXT
-LastName as TEXT
-HireDate as DATE
-For example:
+# Scenario A: City Fitness Club Management
 
-Test	Result
-pragma table_info('Employees');
-cid   name        type        notnull     dflt_value  pk
-----  ----------  ----------  ----------  ----------  ----------
-0     EmployeeID  INTEGER     0                       0
-1     FirstName   TEXT        0                       0
-2     LastName    TEXT        0                       0
-3     HireDate    DATE        0                       0
+**Business Context:**  
+FlexiFit Gym wants a database to manage its members, trainers, and fitness programs.
 
-```sql
--- create table Employees(
-EmployeeID  INTEGER,
-FirstName  TEXT,
-LastName  TEXT,
-HireDate  DATE);
-```
+**Requirements:**  
+- Members register with name, membership type, and start date.  
+- Each member can join multiple programs (Yoga, Zumba, Weight Training).  
+- Trainers assigned to programs; a program may have multiple trainers.  
+- Members may book personal training sessions with trainers.  
+- Attendance recorded for each session.  
+- Payments tracked for memberships and sessions.
 
-**Output:**
-
-![image](https://github.com/user-attachments/assets/7d1b0181-6502-468f-9657-4ace778d16e8)
+### ER Diagram:
+<img width="1266" height="518" alt="image" src="https://github.com/user-attachments/assets/d3360a82-0fa1-44d6-83a5-9ac92e959f7a" />
 
 
-**Question 3**
+
+### Entities and Attributes
+
+| Entity | Attributes (PK, FK) | Notes |
+|--------|--------------------|-------|
+| Member | Member_ID (PK), Name, Membership_Type, Start_Date|Tracks all gym members|
+|Program |Program_ID (PK), Program_Name, Type|Yoga, Zumba, Weight Training|
+|Trainer |Trainer_ID (PK), Name, Specialization|A trainer may take multiple programs|
+|Session |Session_ID (PK), Member_ID (FK), Trainer_ID (FK), Date, Time|For personal training sessions|
+|Attendance|Attendance_ID (PK), Session_ID (FK), Status (Present/Absent)|Records session attendance|
+
+### Relationships and Constraints
+
+| Relationship | Cardinality | Participation | Notes |
+|--------------|------------|---------------|-------|
+|Member–Program (Joins)|M:N|Partial|A member can join many programs|
+|Program–Trainer (Assigned)|M:N|Total|Programs can have multiple trainers|
+|Session–Attendance|1:M|Partial|Each session must have attendance record|
+
+
+### Assumptions
+- Membership type determines allowed programs but not restricted in ER model.
+- Personal training sessions are optional.
+- Payments cover both membership fees and session fees.
+
 ---
--- Create a table named Department with the following constraints:
-DepartmentID as INTEGER should be the primary key.
-DepartmentName as TEXT should be unique and not NULL.
-Location as TEXT.
-For example:
 
-Test	Result
-INSERT INTO Department (DepartmentID, DepartmentName, Location) VALUES (1, 'Human Resources', 'New York');
-select * from Department;
-DepartmentID  DepartmentName   Location
-------------  ---------------  ----------
-1             Human Resources  New York
+# Scenario B: City Library Event & Book Lending System
 
-```sql
--- CREATE TABLE Department(
-DepartmentID  INTEGER primary key,
-DepartmentName TEXT unique not null,
-Location TEXT);
-```
+**Business Context:**  
+The Central Library wants to manage book lending and cultural events.
 
-**Output:**
+**Requirements:**  
+- Members borrow books, with loan and return dates tracked.  
+- Each book has title, author, and category.  
+- Library organizes events; members can register.  
+- Each event has one or more speakers/authors.  
+- Rooms are booked for events and study.  
+- Overdue fines apply for late returns.
 
-![image](https://github.com/user-attachments/assets/9e98217a-979c-4c7f-bcd5-ecfecfdc4d41)
+### ER Diagram:
+<img width="775" height="479" alt="image" src="https://github.com/user-attachments/assets/0e1a5155-452f-4507-98d1-d2186d2e22e2" />
 
 
-**Question 4**
+### Entities and Attributes
+
+| Entity | Attributes (PK, FK) | Notes |
+|--------|--------------------|-------|
+|Member|Member_ID (PK), Name, Email, Phone|Library members|
+|Book|Book_ID (PK), Title, Author, Category|Each book has category (Fiction, etc.)|
+|Loan|Loan_ID (PK), Book_ID (FK), Member_ID (FK), Loan_Date, Return_Date|Tracks borrowing details|
+|Event|Event_ID (PK), Title, Date, Time|Cultural events organized by library|
+|Speaker|Speaker_ID (PK), Name, Expertise|Authors or guest speakers|  
+### Relationships and Constraints
+
+| Relationship | Cardinality | Participation | Notes |
+|--------------|------------|---------------|-------|
+|Member–Loan (Borrows)|1:M|Total|Each member can borrow many books|
+|Book–Loan|1:M|Total|A book can appear in many loan records|
+|Member–Event (Registers)|M:N|Partial|Members can register for events|
+|Event–Speaker|M:N|Total|Each event must have at least one speaker|
+
+### Assumptions
+- Each event must take place in one room.
+
+- Multiple speakers can be assigned to one event.
+
+- Fine is applied only if return date > due date.
+
 ---
--- Create a table named Shipments with the following constraints:
-ShipmentID as INTEGER should be the primary key.
-ShipmentDate as DATE.
-SupplierID as INTEGER should be a foreign key referencing Suppliers(SupplierID).
-OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
-For example:
 
-Test	Result
-INSERT INTO Shipments (ShipmentID, ShipmentDate, SupplierID, OrderID) VALUES (2, '2024-08-03', 99, 1);
-Error: FOREIGN KEY constraint failed
+# Scenario C: Restaurant Table Reservation & Ordering
 
+**Business Context:**  
+A popular restaurant wants to manage reservations, orders, and billing.
 
-```sql
---create table Shipments(
-ShipmentID INTEGER PRIMARY KEY,
-ShipmentDate DATE,
-SupplierID integer,
-OrderID INTEGER,
-foreign key (SupplierID) REFERENCES Suppliers(SupplierID),
-FOREIGN KEY (OrderID) references Orders(OrderID));
-```
+**Requirements:**  
+- Customers can reserve tables or walk in.  
+- Each reservation includes date, time, and number of guests.  
+- Customers place food orders linked to reservations.  
+- Each order contains multiple dishes; dishes belong to categories (starter, main, dessert).  
+- Bills generated per reservation, including food and service charges.  
+- Waiters assigned to serve reservations.
 
-**Output:**
-
-![image](https://github.com/user-attachments/assets/ea95de5b-ab0a-423f-aba3-86bbc7fec952)
+### ER Diagram:
+<img width="1009" height="603" alt="image" src="https://github.com/user-attachments/assets/08929740-8551-46a1-a958-06f0d74551b3" />
 
 
-**Question 5**
+### Entities and Attributes
+
+| Entity | Attributes (PK, FK) | Notes |
+|--------|--------------------|-------|
+|CHEF        | Chef_id (PK), Chef_name, Chef_salary                   | Each chef is uniquely identified by Chef_id. Prepares meals.      |
+|MEAL        | meal_name (PK), meal_price                   | A meal is prepared by chefs, ordered by customers, and consists of ingredients.      |
+| INGREDIENTS       | ing_name (PK), description                   |  Each ingredient has a unique name and is linked to meals.     |
+| CUSTOMERS       | cust_phone (PK), cust_name, cust_address                   |  Customers place orders for meals.     |
+| SUPPLIER       |  S_id (PK), S_name, S_city                  | Suppliers attend to customers.      |
+
+### Relationships and Constraints
+
+| Relationship | Cardinality | Participation | Notes |
+|--------------|------------|---------------|-------|
+|prepares (CHEF–MEAL)              | 1:N           | CHEF (total), MEAL (partial)|One chef can prepare many meals, but a meal is prepared by one chef.|
+| orders (CUSTOMERS–MEAL)             | M:N           | Both partial| A customer can order many meals, and a meal can be ordered by many customers|
+|  consists of (MEAL–INGREDIENTS)| M:N | Both total|Each meal consists of multiple ingredients, and each ingredient can be part of many meals.       |
+| attends (SUPPLIER–CUSTOMERS)          |M:N   |Both partial|A supplier can attend to many customers, and a customer can be attended by many suppliers.
+### Assumptions
+- Each chef can prepare multiple meals, but a meal is prepared by only one chef.
+- A customer can place multiple orders, and each order may include one or more meals. 
+- Each meal consists of one or more ingredients, and an ingredient may be used in multiple meals.
+
 ---
--- In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
 
-ISBN             Title                      Author           Publisher   Year
----------------  -------------------------  ---------------  ----------  ----------
-978-1234567890   Introduction to AI         John Doe
-978-9876543210   Deep Learning              Jane Doe         TechPress   2022
-978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
-For example:
+## Instructions for Students
 
-Test	Result
-SELECT * FROM Books;
-ISBN             Title                      Author           Publisher   Year
----------------  -------------------------  ---------------  ----------  ----------
-978-1234567890   Introduction to AI         John Doe
-978-9876543210   Deep Learning              Jane Doe         TechPress   2022
-978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
-
-
-```sql
--- INSERT INTO Books(ISBN,Title,Author,Publisher,Year)
-VALUES('978-1234567890','Introduction to AI','John Doe',NULL,NULL),
-('978-9876543210','Deep Learning','Jane Doe','TechPress',2022),
-('978-1122334455','Cybersecurity Essentials','Alice Smith',NULL,2021);
-
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/b7980ae6-8c49-4bd9-a6d9-2dad5805350f)
-
-
-**Question 6**
----
--- Create a new table named item with the following specifications and constraints:
-item_id as TEXT and as primary key.
-item_desc as TEXT.
-rate as INTEGER.
-icom_id as TEXT with a length of 4.
-icom_id is a foreign key referencing com_id in the company table.
-The foreign key should cascade updates and deletes.
-item_desc and rate should not accept NULL.
-For example:
-
-Test	Result
-INSERT INTO item VALUES("ITM5","Charlie Gold",700,"COM4");
-UPDATE company SET com_id='COM5' WHERE com_id='COM4';
-SELECT * FROM item;
-item_id     item_desc     rate        icom_id
-----------  ------------  ----------  ----------
-ITM5        Charlie Gold  700         COM5
-
-```sql
--- CREATE TABLE item(
-item_id text primary key,
-item_desc text,
-rate integer,
-icom_id text CHECK (LENGTH(icom_id)=4),
-foreign key(icom_id) references company(com_id)
-on update cascade
-on delete cascade
-);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/b130d013-b196-4e84-8b48-4d71859a61f0)
-
-
-**Question 7**
----
--- Write a SQL query to Add a new column State as text in the Student_details table.
-
-Sample table: Student_details
-
- cid              name             type   notnull     dflt_value  pk
----------------  ---------------  -----  ----------  ----------  ----------
-0                RollNo           int    0                       1
-1                Name             VARCH  1                       0
-2                Gender           TEXT   1                       0
-3                Subject          VARCH  0                       0
-4                MARKS            INT (  0                       0
-For example:
-
-Test	Result
-pragma table_info('Student_details');
-cid         name        type        notnull     dflt_value  pk
-----------  ----------  ----------  ----------  ----------  ----------
-0           RollNo      int         0                       1
-1           Name        VARCHAR(10  1                       0
-2           Gender      TEXT        1                       0
-3           Subject     VARCHAR(30  0                       0
-4           MARKS       INT (3)     0                       0
-5           State       TEXT    
-
-```sql
--- alter table Student_details
-add column State TEXT;
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/0cbc9ecb-de4e-4253-9738-d8188a892acf)
-
-
-**Question 8**
----
---Insert the below data into the Customers table, allowing the City and ZipCode columns to take their default values.
-
-CustomerID  Name          Address
-----------  ------------  ----------
-304         Peter Parker  Spider St      
-
-Note: The City and ZipCode columns will use their default values.
- 
-For example:
-
-Test	Result
-SELECT CustomerID, Name, Address
-FROM Customers;
-CustomerID  Name          Address
-----------  ------------  ----------
-304         Peter Parker  Spider St
-
-
-```sql
--- INSERT INTO Customers(CustomerID,Name,Address)
-VALUES('304','Peter Parker','Spider St');
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/93bb2b64-ef8e-4a66-8357-d8bdc42e1996)
-
-
-**Question 9**
----
--- Insert all students from Archived_students table into the Student_details table.
-
-cid         name        type        notnull     dflt_value  pk
-----------  ----------  ----------  ----------  ----------  ----------
-0           RollNo      INT           0                       1
-1           Name        VARCHAR(100)  0                       0
-2           Gender      VARCHAR(10)   0                       0
-3           Subject     VARCHAR(50)   0                       0
-4           MARKS       INT           0                       0
-For example:
-
-Test	Result
-select * from student_details;
-RollNo      Name           Gender      Subject     MARKS
-----------  -------------  ----------  ----------  ----------
-1           Alice Johnson  Female      Math        85
-2           Bob Smith      Male        Science     90
-3           Charlie Brown  Male        English     78
-
-```sql
--- insert into Student_details(RollNo,Name, Gender,Subject,MARKS)
-select RollNo,Name,Gender,Subject,MARKS
-from Archived_students;
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/b0283e60-24a0-4f74-a3cf-51874166d117)
-
-
-**Question 10**
----
--- Create a table named Products with the following constraints:
-ProductID as INTEGER should be the primary key.
-ProductName as TEXT should be unique and not NULL.
-Price as REAL should be greater than 0.
-StockQuantity as INTEGER should be non-negative.
-For example:
-
-Test	Result
-INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 10);
-select * from Products;
-ProductID   ProductName  Price       StockQuantity
-----------  -----------  ----------  -------------
-1           Laptop       999.99      10
-
-
-```sql
--- create table Products(
-ProductID INTEGER PRIMARY KEY,
-ProductName TEXT UNIQUE NOT NULL,
-Price REAL check(Price>0),
-StockQuantity INTEGER check(StockQuantity>0)
-);
-```
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/ed11553e-a229-45b4-abdd-44929c34d248)
-
-MODULE 1 (SEB) GRADE SCREENSHOT:
-![image](https://github.com/user-attachments/assets/75512c43-07e2-411d-884f-ac786fb618a3)
-
-
-## RESULT
-Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.
+1. Complete **all three scenarios** (A, B, C).  
+2. Identify entities, relationships, and attributes for each.  
+3. Draw ER diagrams using **draw.io / diagrams.net** or hand-drawn & scanned.  
+4. Fill in all tables and assumptions for each scenario.  
+5. Export the completed Markdown (with diagrams) as **a single PDF**
