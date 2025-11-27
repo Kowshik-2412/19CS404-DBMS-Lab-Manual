@@ -1,5 +1,6 @@
 # Experiment 3: DML Commands
-
+### Name : KOWSHIK P
+### Reg No : 212224040164
 ## AIM
 To study and implement DML (Data Manipulation Language) commands.
 
@@ -46,157 +47,155 @@ Used to retrieve records from a table.
 SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
-Increase the reorder level by 30% for products from 'Food' category having quantity in stock less than 50% of existing reorder level in the products table
-~~~
-name               type
---------------  ----------
-product_id         INT
-product_name       VARCHAR(10)
-category           VARCHAR(50)
-cost_price         DECIMAL(10)
-sell_price         DECIMAL(10)
-reorder_lvl        INT
-quantity              INT
-supplier_id           INT
-~~~
+--
+Write a SQL statement to Update the product_name to 'Premium Bread' whose product ID is 5 in the products table.
 
-~~~
-UPDATE products
-set reorder_lvl = reorder_lvl * 1.30
-where category  = 'Food' and quantity < 50;
-~~~
+```sql
+UPDATE Products SET product_name = 'Premium Bread'
+WHERE product_id = 5;
+```
+
 **Output:**
 
-![image](https://github.com/user-attachments/assets/e0d61fb2-958e-4bc0-bbde-7709c2b1cdbc)
+![Screenshot 2025-05-05 134254](https://github.com/user-attachments/assets/20398f14-d470-40ef-a258-f6fd7c55a309)
+
 
 **Question 2**
-Write a SQL statement to Increase the selling price per unit by 5% for product ID 15 who's sale is on '2023-01-31'.
-sales(sale_id,sale_date,product_id,quantity,sell_price,total_sell_price)
-~~~
-update sales
-set sell_price=sell_price*1.05
-where product_id=15 and sale_date='2023-01-31';
-~~~
+---
+Write a SQL statement to Update the per_unit_price to 25 and total_price accordingly in purchases table where purchase_date is '2022-08-15' and product_id is 12.
+
+```sql
+UPDATE purchases 
+SET per_unit_price = 25,
+total_price = quantity *25
+WHERE purchase_date='2022-08-15' AND product_id = 12;
+```
+
 **Output:**
 
-![image](https://github.com/user-attachments/assets/95f653bd-03b1-4112-95b1-cf7b96db66d0)
-
+![Screenshot 2025-05-05 134354](https://github.com/user-attachments/assets/3b6e6da6-1945-451b-a2b4-cf46fff7c790)
 
 **Question 3**
-Write a SQL statement to update the product_name as 'Grapefruit' whose product_id is 4 in the products table.
-~~~
-products table
+---
+Update the 'Selling_Price' to add 10% extra margin for all products supplied by the supplier with id 6.
 
----------------
-product_id
-product_name
-category_id
-availability
-~~~
-~~~
-update products
-set product_name = 'Grapefruit'
-where product_id=4;
-~~~
+PRODUCTS TABLE
+
+name               type
+-----------------  ---------------
+product_id         INT
+product_name       VARCHAR(100)
+category           VARCHAR(50)
+cost_price         DECIMAL(10,2)
+sell_price         DECIMAL(10,2)
+reorder_lvl        INT
+quantity           INT
+supplier_id        INT
+
+```sql
+UPDATE Products 
+SET sell_price = sell_price+ (sell_price*0.10) 
+WHERE supplier_id=6;
+```
+
 **Output:**
 
-![image](https://github.com/user-attachments/assets/de83bbc9-4bf1-471e-8f7d-a55540d1e765)
+![Screenshot 2025-05-05 134448](https://github.com/user-attachments/assets/78afa96a-525f-48e8-bfe0-e65ebf9747ff)
 
 
 **Question 4**
-Write a SQL query to delete a doctor from Doctors table whose Specialization is 'Pediatrics' and First name is 'Michael'.
-Sample table: Doctors
-attributes : doctor_id, first_name, last_name, specialization
-~~~
-delete from Doctors
-where specialization = 'Pediatrics' and first_name = 'Michael';
-~~~
+---
+Write a SQL statement to Update the hire_date of employees in department 50 to 2024-01-24.
+```sql
+
+UPDATE Employees
+SET hire_date = '2024-01-24'
+WHERE department_id = 50 ;
+
+ 
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/e43aeb1e-3688-4ebc-b6a5-62b72d47ba59)
+![Screenshot 2025-05-05 134613](https://github.com/user-attachments/assets/47b76f5c-8da1-4415-aa53-2ef8d58169f8)
 
 
 **Question 5**
-Write a SQL query to Delete customers from 'customer' table where 'GRADE' is exactly 2.
-~~~
+---
+Write a SQL query to Delete a Specific Surgery whose ID is 3
 
- 
-Sample table: Customer
+Sample table: Surgeries
 
-+-----------+-------------+-------------+--------------+--------------+-------+-------------+-------------+-------------+---------------+--------------+------------+  
-|CUST_CODE  | CUST_NAME   | CUST_CITY   | WORKING_AREA | CUST_COUNTRY | GRADE | OPENING_AMT | RECEIVE_AMT | PAYMENT_AMT |OUTSTANDING_AMT| PHONE_NO     | AGENT_CODE |
-+-----------+-------------+-------------+--------------+--------------+-------+-------------+-------------+-------------+---------------+--------------+------------+
-| C00013    | Holmes      | London      | London       | UK           |     2 |     6000.00 |     5000.00 |     7000.00 |       4000.00 | BBBBBBB      | A003       |
-| C00001    | Micheal     | New York    | New York     | USA          |     2 |     3000.00 |     5000.00 |     2000.00 |       6000.00 | CCCCCCC      | A008       |
-| C00020    | Albert      | New York    | New York     | USA          |     3 |     5000.00 |     7000.00 |     6000.00 |       6000.00 | BBBBSB
-~~~
-~~~
-delete from customer
-where GRADE = 2;
-~~~
+```sql
+DELETE FROM Surgeries
+WHERE surgery_id = 3;
+```
 
 **Output:**
-![image](https://github.com/user-attachments/assets/211be447-7695-4ab2-9ab4-69017098bbab)
+![Screenshot 2025-05-05 134656](https://github.com/user-attachments/assets/8c365f49-5f2a-4ba4-9d08-a98e5d707b93)
+
 
 **Question 6**
-Write a SQL query to delete a specific doctor from Doctors table whose ID is 1.
-Sample table: Doctors
-attributes : doctor_id, first_name, last_name, specialization
-~~~
-DELETE FROM Doctors
-where Doctor_id=1;
-~~~
+---
+Write a SQL query to remove rows from the table 'customer' with the following condition -
+
+1. 'cust_city' should begin with the letter 'L',
+
+Sample table: Customer
+
+```sql
+DELETE FROM customer
+WHERE cust_city LIKE'L%';
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/449f6fd4-f9c7-494b-8496-6ae2e60f24ae)
+![Screenshot 2025-05-05 134751](https://github.com/user-attachments/assets/90685ca8-94d1-40fa-a704-142980569c45)
+
 
 **Question 7**
-Write a SQL query to Delete All Doctors with a NULL Specialization
+---Write a SQL query to delete a doctor from Doctors table whose Specialization is 'Pediatrics' and First name is 'Michael'.
+
 Sample table: Doctors
-attributes : doctor_id, first_name, last_name, specialization
-~~~
+
+```sql
 DELETE FROM Doctors
-WHERE specialization IS NULL;
-~~~
+WHERE
+specialization ='Pediatrics'AND first_name = 'Michael';
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/f46f563c-33c6-49ff-81a6-d4a4f2c2b581)
+![Screenshot 2025-05-05 134855](https://github.com/user-attachments/assets/eb912cfb-1793-4442-a32d-ea7e7bd1c655)
+
 
 **Question 8**
+---
+Write a SQL query to Select all patients whose name starts with A.
 
-Write a SQL query to determine the age group of value1 in the Calculations table as 'Child' if it is less than 13, 'Teen' if it is between 13 and 19, and 'Adult' if it is 20 or older.
-~~~
+Table: Patients
 
-cid         name        type        notnull     dflt_value  pk
-----------  ----------  ----------  ----------  ----------  ----------
-0           id          INTEGER     0                       1
-1           value1      REAL        0                       0
-2           value2      REAL        0                       0
-3           base        INTEGER     0                       0
-4           exponent    INTEGER     0                       0
-5           number      REAL        0                       0
-6           decimal     REAL        0                       0
-~~~
-~~~
-select id,value1,
-case
-when value1<13 then 'Child'
-when value1 between 13 and 19 then 'Teen' else 'Adult'
-end as age_group
-from Calculations;
-~~~
+name                  type
+--------------------  ----------
+patient_id            INT
+first_name            VARCHAR(50)
+last_name             VARCHAR(50)
+date_of_birth         DATE
+admission_date        DATE
+discharge_date        DATE
+doctor_id             INT
+```sql
+SELECT * FROM Patients
+WHERE first_name LIKE 'A%';
+```
 
 **Output:**
-
-![image](https://github.com/user-attachments/assets/04d3d2ee-c978-4c75-81f0-3946fe357b94)
+![Screenshot 2025-05-05 134943](https://github.com/user-attachments/assets/e8ff2a4c-ccff-4930-b248-fc1948b58e7c)
 
 
 **Question 9**
-Write a SQL query to calculate the absolute value of the value1 column from the Calculations table.
-~~~
+---
+Write a SQL query to categorize decimal as 'High', 'Medium', or 'Low' based on whether it is greater than 100, between 50 and 100, or less than 50 in the Calculations table
 
 cid         name        type        notnull     dflt_value  pk
 ----------  ----------  ----------  ----------  ----------  ----------
@@ -207,27 +206,43 @@ cid         name        type        notnull     dflt_value  pk
 4           exponent    INTEGER     0                       0
 5           number      REAL        0                       0
 6           decimal     REAL        0                       0
-~~~
-~~~
-select id,value1,abs(value1) as absolute_value
-from Calculations;
-~~~
+ 
 
-**Output:** 
+```sql
+SELECT id,decimal,
+case
+    when decimal> 100 then 'High'
+    when decimal BETWEEN 50 and 100  then 'Medium'
+    ELSE 'Low'
+    END AS category
+    from Calculations;
+```
 
-![image](https://github.com/user-attachments/assets/386479f3-72d3-4a8e-815e-53540d143b21)
-
-**Question 10**
-Write a SQL statement to Update the grade of all customers in Chennai city as  5. 
-Customer table (customer_id,cust_name,city,grade,salesman_id)
-~~~
-update Customer
-set grade = 5
-where city = 'Chennai';
-~~~
 **Output:**
 
-![image](https://github.com/user-attachments/assets/e6f7369e-8a77-430e-b6b6-46816bbcdaf2)
+![Screenshot 2025-05-05 135106](https://github.com/user-attachments/assets/1574f25a-e70f-4e83-8a8e-96642deee2b5)
+
+
+**Question 10**
+---
+Write a SQL query to find customers who are either from the city 'New York' or who have a grade greater than 200. Return customer_id, cust_name, city, grade, and salesman_id.
+
+Sample table: customer
+
+ customer_id |   cust_name    |    city    | grade | salesman_id 
+-------------+----------------+------------+-------+-------------
+        3002 | Nick Rimando   | New York   |   100 |        5001
+        3007 | Brad Davis     | New York   |   200 |        5001
+        3005 | Graham Zusi    | California |   200 |        5002
+
+```sql
+SELECT customer_id, cust_name, city, grade,salesman_id FROM customer
+WHERE City = 'New York' OR GRADE >200;
+```
+
+**Output:**
+
+![Screenshot 2025-05-05 135204](https://github.com/user-attachments/assets/463194d8-3515-477e-87f1-89af39df6737)
 
 
 ## RESULT
