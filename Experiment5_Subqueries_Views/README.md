@@ -1,5 +1,6 @@
 # Experiment 5: Subqueries and Views
-
+### Name : KOWSHIK P
+### Reg No : 212224040164
 ## AIM
 To study and implement subqueries and views.
 
@@ -37,45 +38,32 @@ DROP VIEW view_name;
 ```
 
 **Question 1**
-Write a SQL query to List departments with names longer than the average length
-Departments Table (attributes: department_id, department_name)
-![image](https://github.com/user-attachments/assets/601b7491-6659-406c-b3ef-09a48970ea30)
-~~~
-SELECT department_id, department_name
-FROM Departments
-WHERE LENGTH(department_name) > (
-    SELECT AVG(LENGTH(department_name)) FROM Departments
-);
-~~~
+--
+Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
 
+```
+SELECT *
+FROM GRADES g
+WHERE grade = (
+    SELECT MAX(grade)
+    FROM GRADES
+    WHERE subject = g.subject
+);
+
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/b4b34710-2470-484a-864c-20f49ada5ac0)
+![image](https://github.com/user-attachments/assets/d3d3c6be-b5b9-40e7-aed4-091d3c825e63)
 
 
 **Question 2**
-Write a SQL query to Retrieve the medications with dosages equal to the lowest dosage
-Table Name: Medications (attributes: medication_id, medication_name, dosage)
-![image](https://github.com/user-attachments/assets/b3ce9e5e-6c7e-4df8-b7bb-ff451f1b5528)
-~~~
-SELECT medication_id, medication_name, dosage
-FROM Medications
-WHERE dosage = (
-    SELECT MIN(dosage)
-    FROM Medications
-);
-~~~
-
-**Output:**
-![image](https://github.com/user-attachments/assets/48b57122-79e7-4546-a7a3-a47045cc3faa)
-
-
-
-**Question 3**
+---
 Write a SQL query to Identify customers whose city is different from the city of the customer with the highest ID
+
 SAMPLE TABLE: customer
-~~~
+```
 name             type
 ---------------  ---------------
 id               INTEGER
@@ -83,9 +71,8 @@ name             TEXT
 city             TEXT
 email            TEXT
 phone            INTEGER
-~~~
-
-~~~
+```
+```
 SELECT *
 FROM customer
 WHERE city <> (
@@ -93,141 +80,20 @@ WHERE city <> (
     FROM customer
     WHERE id = (SELECT MAX(id) FROM customer)
 );
-~~~
-**Output:**
 
-![image](https://github.com/user-attachments/assets/7ac19955-caf9-4ec4-9728-cf306c683979)
-
-
-**Question 4**
-Write a SQL query to Retrieve the names of customers who have a phone number that is not shared with any other customer.
-SAMPLE TABLE: customer
-~~~
-name             type
----------------  ---------------
-id               INTEGER
-name             TEXT
-city             TEXT
-email            TEXT
-phone            INTEGER
-~~~
-~~~
-SELECT name
-FROM customer
-WHERE phone IN (
-    SELECT phone
-    FROM customer
-    GROUP BY phone
-    HAVING COUNT(*) = 1
-);
-~~~
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d3aaaee9-420a-4a99-9392-e2c54b498511)
+![image](https://github.com/user-attachments/assets/91ff9e98-1f8d-4a62-877a-5cf34ee18ee4)
 
 
-**Question 5**
-Write a SQL query that retrieve all the columns from the table "Grades", where the grade is equal to the maximum grade achieved in each subject.
-
-Sample table: GRADES (attributes: student_id, student_name, subject, grade)
-![image](https://github.com/user-attachments/assets/c0d045aa-4f81-4584-ab4a-cd9ad6ec0363)
-~~~
-SELECT *
-FROM Grades g
-WHERE grade = (
-    SELECT MAX(grade)
-    FROM Grades
-    WHERE subject = g.subject
-);
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/1622ea28-49bc-4fa5-9237-a65aab635a0e)
-
-**Question 6**
-Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi
-
-Sample table: CUSTOMERS
-~~~
-
-ID          NAME        AGE         ADDRESS     SALARY
-----------  ----------  ----------  ----------  ----------
-
-1          Ramesh     32              Ahmedabad     2000
-2          Khilan        25              Delhi                 1500
-3          Kaushik      23              Kota                  2000
-4          Chaitali       25             Mumbai            6500
-5          Hardik        27              Bhopal              8500
-6          Komal         22              Hyderabad       4500
-
-7           Muffy          24              Indore            10000
-~~~
-~~~
-SELECT *
-FROM CUSTOMERS
-WHERE ADDRESS = 'Delhi';
-~~~
-**Output:**
-
-![image](https://github.com/user-attachments/assets/400b166d-7512-49dc-9eb6-aca2ca7714b8)
-
-**Question 7**
-Write a SQL query to Retrieve the names and cities of customers who have the same city as customers with IDs 3 and 7
-
-SAMPLE TABLE: customer
-~~~
-
-name             type
----------------  ---------------
-id               INTEGER
-name             TEXT
-city             TEXT
-email            TEXT
-phone            INTEGER
-~~~
-~~~
-SELECT name, city
-FROM customer
-WHERE city IN (
-    SELECT city
-    FROM customer
-    WHERE id IN (3, 7)
-);
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/b60183fb-f979-4821-931b-b2f8b297ad78)
-
-**Question 8**
-Write a SQL query that retrieves the names of students and their corresponding grades, where the grade is equal to the maximum grade achieved in each subject.
-Sample table: GRADES
-![image](https://github.com/user-attachments/assets/bf246299-c6d3-4770-854d-d9c0fdf37cbd)
-~~~
-select student_name   ,  grade
-from GRADES g
-where grade =
-(
-     select max(grade)
-     from GRADES
-     where subject = g.subject
-);
-~~~
-
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/6738e361-a609-4902-a782-c6e06040f2ac)
-
-
-**Question 9**
+**Question 3**
+---
 Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose salary is LESS than $2500.
 
 Sample table: CUSTOMERS
-~~~
-
+```
 ID          NAME        AGE         ADDRESS     SALARY
 ----------  ----------  ----------  ----------  ----------
 
@@ -239,25 +105,85 @@ ID          NAME        AGE         ADDRESS     SALARY
 6          Komal         22              Hyderabad       4500
 
 7           Muffy          24              Indore            10000
-~~~
-~~~
-select *
-from CUSTOMERS
-where SALARY < 2500;
-~~~
 
+```
+```
+SELECT *
+FROM CUSTOMERS
+WHERE SALARY < 2500;
+
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/d7c3e604-6c72-4a2c-a51c-f34c15b61bc7)
+![image](https://github.com/user-attachments/assets/5368fd05-45e9-44ce-98b9-755023b20def)
 
-**Question 10**
+
+**Question 4**
+---
+From the following tables write a SQL query to count the number of customers with grades above the average in New York City. Return grade and count.
+
+customer table
+```
+name         type
+-----------  ----------
+customer_id  int
+cust_name    text
+city         text
+grade        int
+salesman_id  int
+```
+```
+SELECT grade, COUNT(*)
+FROM customer
+WHERE  grade > (SELECT AVG(grade) FROM customer WHERE city = 'New York')
+GROUP BY grade;
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/5ee3faa5-16e7-4f66-aa1d-3be574da237b)
+
+
+**Question 5**
+---
+Write a SQL query to retrieve all columns from the CUSTOMERS table for customers whose Address as Delhi
+
+Sample table: CUSTOMERS
+```
+ID          NAME        AGE         ADDRESS     SALARY
+----------  ----------  ----------  ----------  ----------
+
+1          Ramesh     32              Ahmedabad     2000
+2          Khilan        25              Delhi                 1500
+3          Kaushik      23              Kota                  2000
+4          Chaitali       25             Mumbai            6500
+5          Hardik        27              Bhopal              8500
+6          Komal         22              Hyderabad       4500
+
+7           Muffy          24              Indore            10000
+```
+```
+SELECT *
+FROM CUSTOMERS
+WHERE ADDRESS = 'Delhi';
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/80f9f243-907d-4aea-a337-6c50af79ea3f)
+
+
+**Question 6**
+---
 From the following tables write a SQL query to find the order values greater than the average order value of 10th October 2012. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
 
 Note: date should be yyyy-mm-dd format
-ORDERS TABLE
-~~~
 
+ORDERS TABLE
+```
 name            type
 ----------     ----------
 ord_no          int
@@ -265,23 +191,155 @@ purch_amt    real
 ord_date       text
 customer_id  int
 salesman_id  int
-~~~
-~~~
-select * 
-from ORDERS
-where purch_amt >
-(
-     select purch_amt
-     from ORDERS
-     where ord_date = '2012-10-10'
+```
+```
+SELECT ord_no, purch_amt, ord_date, customer_id, salesman_id
+FROM ORDERS
+WHERE purch_amt > (
+    SELECT AVG(purch_amt)
+    FROM ORDERS
+    WHERE ord_date = '2012-10-10'
 );
-~~~
+
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/4e78fefc-67a9-4d14-84b9-e972e14fd3eb)
+![image](https://github.com/user-attachments/assets/c430c51e-9b78-4f93-8466-421008a9ef22)
+
+
+**Question 7**
+---
+From the following tables write a SQL query to find all orders generated by New York-based salespeople. Return ord_no, purch_amt, ord_date, customer_id, salesman_id.
+
+salesman table
+```
+name             type
+---------------  ---------------
+salesman_id      numeric(5)
+name                 varchar(30)
+city                    varchar(15)
+commission       decimal(5,2)
+```
+orders table
+```
+name             type
+---------------  --------
+order_no         int
+purch_amt        real
+order_date       text
+customer_id      int
+salesman_id      int
+```
+```
+SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
+FROM orders o
+JOIN salesman s ON o.salesman_id = s.salesman_id
+WHERE s.city = 'New York';
+
+```
+
+**Output:**
+![image](https://github.com/user-attachments/assets/2fc61d66-a2cb-4187-aae4-096d234335ec)
+
+**Question 8**
+---
+From the following tables, write a SQL query to find those salespeople who earned the maximum commission. Return ord_no, purch_amt, ord_date, and salesman_id.
+
+salesman table
+```
+name             type
+---------------  ---------------
+salesman_id      numeric(5)
+name                 varchar(30)
+city                    varchar(15)
+commission       decimal(5,2)
+```
+orders table
+```
+name             type
+---------------  --------
+order_no         int
+purch_amt        real
+order_date       text
+customer_id      int
+salesman_id      int
+```
+```
+SELECT o.ord_no, o.purch_amt, o.ord_date, o.salesman_id
+FROM orders o
+JOIN salesman s ON o.salesman_id = s.salesman_id
+WHERE s.commission = (
+    SELECT MAX(commission)
+    FROM salesman
+);
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/d34c06f4-4485-45aa-a1df-f7d9401eec2b)
+
+
+**Question 9**
+---
+From the following tables, write a SQL query to find all the orders generated in New York city. Return ord_no, purch_amt, ord_date, customer_id and salesman_id.
+
+SALESMAN TABLE
+```
+name               type
+-----------        ----------
+salesman_id  numeric(5)
+name             varchar(30)
+city                 varchar(15)
+commission   decimal(5,2)
+```
+ORDERS TABLE
+```
+name            type
+----------      ----------
+ord_no          int
+purch_amt    real
+ord_date       text
+customer_id  int
+salesman_id  int
+```
+```
+SELECT o.ord_no, o.purch_amt, o.ord_date, o.customer_id, o.salesman_id
+FROM orders o
+JOIN salesman s ON o.salesman_id = s.salesman_id
+WHERE s.city = 'New York';
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/52f55304-0cfd-4b75-bdb5-f6fe19e13f0b)
+
+**Question 10**
+---
+Write a SQL query that retrieves the all the columns from the Table Grades, where the grade is equal to the minimum grade achieved in each subject.
+
+Sample table: GRADES (attributes: student_id, student_name, subject, grade)
+
+
+```
+SELECT student_id, student_name, subject, grade
+FROM Grades g
+WHERE grade = (
+    SELECT MIN(grade)
+    FROM Grades
+    WHERE subject = g.subject
+);
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/d16e38c0-ec16-448e-b45b-fbb95ba9cba7)
 
 
 
 ## RESULT
 Thus, the SQL queries to implement subqueries and views have been executed successfully.
+
