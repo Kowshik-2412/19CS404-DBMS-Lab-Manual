@@ -1,5 +1,6 @@
 # Experiment 2: DDL Commands
-
+### Name : KOWSHIK P
+### Reg No : 212224040164
 ## AIM
 To study and implement DDL commands and different types of constraints.
 
@@ -104,180 +105,8 @@ CREATE TABLE Table_Name (
 ```
 
 **Question 1**
-~~~
-Insert the below data into the Employee table, allowing the Department and Salary columns to take their default values.
-
-EmployeeID  Name         Position
-----------  -----------  ----------
-4           Emily White  Analyst
-
-Note: The Department and Salary columns will use their default values
-~~~
-~~~
-insert into
-Employee(EmployeeID,Name,Position)
-values(4,'Emily White','Analyst');
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/970d602e-1349-463f-b99f-3c0beed0b324)
-
-
-**Question 2**
-
-Write an SQL query to add two new columns, first_name and last_name, to the table employee. Both columns should have a data type of varchar(50).
-
-~~~
-ALTER TABLE employee
-ADD COLUMN first_name varchar(50);
-
-ALTER TABLE employee
-ADD COLUMN last_name varchar(50);
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/51775885-79c4-4aa3-912c-c06bf9c8009f)
-
-
-**Question 3**
-
-Create a new table named products with the following specifications:
-product_id as INTEGER and primary key.
-product_name as TEXT and not NULL.
-list_price as DECIMAL (10, 2) and not NULL.
-discount as DECIMAL (10, 2) with a default value of 0 and not NULL.
-A CHECK constraint at the table level to ensure:
-list_price is greater than or equal to discount
-discount is greater than or equal to 0
-list_price is greater than or equal to 0
-
-
-~~~
-create table products(
-product_id INTEGER primary key,
-product_name TEXT not null,
-list_price DECIMAL(10,2) not null
-check(list_price>=discount and
-list_price>=0),
-discount DECIMAL(10,2) default 0 not 
-null check(discount>=0));
-~~~
-
-**Output:**
-![image](https://github.com/user-attachments/assets/04e98da3-4146-4af3-8894-981856e6cc18)
-
-
-
-
-**Question 4**
-
-Insert all books from Out_of_print_books into Books
-Table attributes are ISBN, Title, Author, Publisher, YearPublished
-
-
-~~~
-INSERT into Books
-SELECT ISBN, Title, Author, Publisher, YearPublished
-FROM  Out_of_print_books;
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/f61b83eb-03f6-45c9-b391-489e771ba55b)
-
-
-**Question 5**
-Create a table named Tasks with the following columns:
-
-TaskID as INTEGER
-TaskName as TEXT
-DueDate as DATE
-
-~~~
-create table Tasks(
-TaskID INTEGER,
-TaskName TEXT,
-DueDate DATE);
-~~~
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/986ee815-ecba-48c5-9fda-6d9368069223)
-
-
-**Question 6**
-
-Create a table named Bonuses with the following constraints:
-BonusID as INTEGER should be the primary key.
-EmployeeID as INTEGER should be a foreign key referencing Employees(EmployeeID).
-BonusAmount as REAL should be greater than 0.
-BonusDate as DATE.
-Reason as TEXT should not be NULL.
-
-
-~~~
-create table Bonuses(
-BonusID INTEGER primary key,
-EmployeeID INTEGER,
-BonusAmount REAL check(BonusAmount>0),
-BonusDate DATE,
-Reason TEXT not null,
-foreign key(EmployeeID) references Employees(EmployeeID));
-~~~
-**Output:**
-
-![image](https://github.com/user-attachments/assets/aa782fce-6239-4d65-98c9-3dd9b6881ec0)
-
-**Question 7**
-Create a table named Invoices with the following constraints:
-InvoiceID as INTEGER should be the primary key.
-InvoiceDate as DATE.
-Amount as REAL should be greater than 0.
-DueDate as DATE should be greater than the InvoiceDate.
-OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
-
-~~~
-create table Invoices(
-InvoiceID INTEGER primary key,
-InvoiceDate DATE,
-Amount REAL check(Amount>0),
-DueDate DATE check(DueDate>InvoiceDate),
-OrderID INTEGER,
-foreign key (OrderID) references Orders(OrderID));
-~~~
-
-
-**Output:**
-
-![image](https://github.com/user-attachments/assets/897ae6fe-833f-42d4-a53f-7c583132ba33)
-
-
-**Question 8**
-
-Create a table named Members with the following columns:
-
-MemberID as INTEGER
-MemberName as TEXT
-JoinDate as DATE
-
-~~~
-create table Members(
-MemberID INTEGER,
-MemberName TEXT,
-JoinDate DATE
-
-);
-~~~
-**Output:**
-
-![image](https://github.com/user-attachments/assets/2450ed0a-7beb-4d26-9aca-09bc6f76bfa0)
-
-
-**Question 9**
-~~~
-Write a SQL query to add birth_date attribute as timestamp (datatype) in the table customer 
+--
+--Write a SQL query to Add a new column named "discount" with the data type DECIMAL(5,2) to the "customer" table.
 
 Sample table: customer
 
@@ -286,34 +115,321 @@ Sample table: customer
         3002 | Nick Rimando   | New York   |   100 |        5001
         3007 | Brad Davis     | New York   |   200 |        5001
         3005 | Graham Zusi    | California |   200 |        5002
-~~~
-~~~
-alter table customer
-add column birth_date timestamp;
-~~~
+ 
+
+For example:
+
+Test	Result
+pragma table_info('customer');
+cid         name         type                               notnull     dflt_value  pk
+----------  -----------  ---------------------------------  ----------  ----------  ----------
+0           customer_id  integer primarykey auto increment  0                       0
+1           cust_name    varchar2(30)                       0                       0
+2           city         varchar(30)                        0                       0
+3           grade        number                             0                       0
+4           salesman_id  number                             0                       0
+5           discount     DECIMAL(5,2)                       0                       0
+
+
+```sql
+-- ALTER TABLE CUSTOMER
+ADD discount DECIMAL(5,2);
+```
 
 **Output:**
 
-![image](https://github.com/user-attachments/assets/66910008-cafe-4a31-bf5f-c4249120a895)
+![Screenshot (56)](https://github.com/user-attachments/assets/7acafeb1-6af0-49ce-895b-0692e3da86df)
+
+
+**Question 2**
+---
+-- Create a table named Employees with the following columns:
+
+EmployeeID as INTEGER
+FirstName as TEXT
+LastName as TEXT
+HireDate as DATE
+For example:
+
+Test	Result
+pragma table_info('Employees');
+cid   name        type        notnull     dflt_value  pk
+----  ----------  ----------  ----------  ----------  ----------
+0     EmployeeID  INTEGER     0                       0
+1     FirstName   TEXT        0                       0
+2     LastName    TEXT        0                       0
+3     HireDate    DATE        0                       0
+
+```sql
+-- create table Employees(
+EmployeeID  INTEGER,
+FirstName  TEXT,
+LastName  TEXT,
+HireDate  DATE);
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/7d1b0181-6502-468f-9657-4ace778d16e8)
+
+
+**Question 3**
+---
+-- Create a table named Department with the following constraints:
+DepartmentID as INTEGER should be the primary key.
+DepartmentName as TEXT should be unique and not NULL.
+Location as TEXT.
+For example:
+
+Test	Result
+INSERT INTO Department (DepartmentID, DepartmentName, Location) VALUES (1, 'Human Resources', 'New York');
+select * from Department;
+DepartmentID  DepartmentName   Location
+------------  ---------------  ----------
+1             Human Resources  New York
+
+```sql
+-- CREATE TABLE Department(
+DepartmentID  INTEGER primary key,
+DepartmentName TEXT unique not null,
+Location TEXT);
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/9e98217a-979c-4c7f-bcd5-ecfecfdc4d41)
+
+
+**Question 4**
+---
+-- Create a table named Shipments with the following constraints:
+ShipmentID as INTEGER should be the primary key.
+ShipmentDate as DATE.
+SupplierID as INTEGER should be a foreign key referencing Suppliers(SupplierID).
+OrderID as INTEGER should be a foreign key referencing Orders(OrderID).
+For example:
+
+Test	Result
+INSERT INTO Shipments (ShipmentID, ShipmentDate, SupplierID, OrderID) VALUES (2, '2024-08-03', 99, 1);
+Error: FOREIGN KEY constraint failed
+
+
+```sql
+--create table Shipments(
+ShipmentID INTEGER PRIMARY KEY,
+ShipmentDate DATE,
+SupplierID integer,
+OrderID INTEGER,
+foreign key (SupplierID) REFERENCES Suppliers(SupplierID),
+FOREIGN KEY (OrderID) references Orders(OrderID));
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/ea95de5b-ab0a-423f-aba3-86bbc7fec952)
+
+
+**Question 5**
+---
+-- In the Books table, insert a record where some fields are NULL, another record where all fields are filled without any NULL values, and a third record where some fields are filled, and others are left as NULL.
+
+ISBN             Title                      Author           Publisher   Year
+---------------  -------------------------  ---------------  ----------  ----------
+978-1234567890   Introduction to AI         John Doe
+978-9876543210   Deep Learning              Jane Doe         TechPress   2022
+978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
+For example:
+
+Test	Result
+SELECT * FROM Books;
+ISBN             Title                      Author           Publisher   Year
+---------------  -------------------------  ---------------  ----------  ----------
+978-1234567890   Introduction to AI         John Doe
+978-9876543210   Deep Learning              Jane Doe         TechPress   2022
+978-1122334455   Cybersecurity Essentials   Alice Smith                  2021
+
+
+```sql
+-- INSERT INTO Books(ISBN,Title,Author,Publisher,Year)
+VALUES('978-1234567890','Introduction to AI','John Doe',NULL,NULL),
+('978-9876543210','Deep Learning','Jane Doe','TechPress',2022),
+('978-1122334455','Cybersecurity Essentials','Alice Smith',NULL,2021);
+
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/b7980ae6-8c49-4bd9-a6d9-2dad5805350f)
+
+
+**Question 6**
+---
+-- Create a new table named item with the following specifications and constraints:
+item_id as TEXT and as primary key.
+item_desc as TEXT.
+rate as INTEGER.
+icom_id as TEXT with a length of 4.
+icom_id is a foreign key referencing com_id in the company table.
+The foreign key should cascade updates and deletes.
+item_desc and rate should not accept NULL.
+For example:
+
+Test	Result
+INSERT INTO item VALUES("ITM5","Charlie Gold",700,"COM4");
+UPDATE company SET com_id='COM5' WHERE com_id='COM4';
+SELECT * FROM item;
+item_id     item_desc     rate        icom_id
+----------  ------------  ----------  ----------
+ITM5        Charlie Gold  700         COM5
+
+```sql
+-- CREATE TABLE item(
+item_id text primary key,
+item_desc text,
+rate integer,
+icom_id text CHECK (LENGTH(icom_id)=4),
+foreign key(icom_id) references company(com_id)
+on update cascade
+on delete cascade
+);
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/b130d013-b196-4e84-8b48-4d71859a61f0)
+
+
+**Question 7**
+---
+-- Write a SQL query to Add a new column State as text in the Student_details table.
+
+Sample table: Student_details
+
+ cid              name             type   notnull     dflt_value  pk
+---------------  ---------------  -----  ----------  ----------  ----------
+0                RollNo           int    0                       1
+1                Name             VARCH  1                       0
+2                Gender           TEXT   1                       0
+3                Subject          VARCH  0                       0
+4                MARKS            INT (  0                       0
+For example:
+
+Test	Result
+pragma table_info('Student_details');
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           RollNo      int         0                       1
+1           Name        VARCHAR(10  1                       0
+2           Gender      TEXT        1                       0
+3           Subject     VARCHAR(30  0                       0
+4           MARKS       INT (3)     0                       0
+5           State       TEXT    
+
+```sql
+-- alter table Student_details
+add column State TEXT;
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/0cbc9ecb-de4e-4253-9738-d8188a892acf)
+
+
+**Question 8**
+---
+--Insert the below data into the Customers table, allowing the City and ZipCode columns to take their default values.
+
+CustomerID  Name          Address
+----------  ------------  ----------
+304         Peter Parker  Spider St      
+
+Note: The City and ZipCode columns will use their default values.
+ 
+For example:
+
+Test	Result
+SELECT CustomerID, Name, Address
+FROM Customers;
+CustomerID  Name          Address
+----------  ------------  ----------
+304         Peter Parker  Spider St
+
+
+```sql
+-- INSERT INTO Customers(CustomerID,Name,Address)
+VALUES('304','Peter Parker','Spider St');
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/93bb2b64-ef8e-4a66-8357-d8bdc42e1996)
+
+
+**Question 9**
+---
+-- Insert all students from Archived_students table into the Student_details table.
+
+cid         name        type        notnull     dflt_value  pk
+----------  ----------  ----------  ----------  ----------  ----------
+0           RollNo      INT           0                       1
+1           Name        VARCHAR(100)  0                       0
+2           Gender      VARCHAR(10)   0                       0
+3           Subject     VARCHAR(50)   0                       0
+4           MARKS       INT           0                       0
+For example:
+
+Test	Result
+select * from student_details;
+RollNo      Name           Gender      Subject     MARKS
+----------  -------------  ----------  ----------  ----------
+1           Alice Johnson  Female      Math        85
+2           Bob Smith      Male        Science     90
+3           Charlie Brown  Male        English     78
+
+```sql
+-- insert into Student_details(RollNo,Name, Gender,Subject,MARKS)
+select RollNo,Name,Gender,Subject,MARKS
+from Archived_students;
+```
+
+**Output:**
+
+![image](https://github.com/user-attachments/assets/b0283e60-24a0-4f74-a3cf-51874166d117)
 
 
 **Question 10**
-~~~
-Insert the below data into the Student_details table, allowing the Subject and MARKS columns to take their default values.
+---
+-- Create a table named Products with the following constraints:
+ProductID as INTEGER should be the primary key.
+ProductName as TEXT should be unique and not NULL.
+Price as REAL should be greater than 0.
+StockQuantity as INTEGER should be non-negative.
+For example:
 
-RollNo      Name          Gender      
-----------  ------------  ----------  
-204         Samuel Black  M          
+Test	Result
+INSERT INTO Products (ProductID, ProductName, Price, StockQuantity) VALUES (1, 'Laptop', 999.99, 10);
+select * from Products;
+ProductID   ProductName  Price       StockQuantity
+----------  -----------  ----------  -------------
+1           Laptop       999.99      10
 
-Note: The Subject and MARKS columns will use their default values.
-~~~
-~~~
-insert into Student_details(RollNo,Name,Gender)
-values(204,"Samuel Black","M");
-~~~
+
+```sql
+-- create table Products(
+ProductID INTEGER PRIMARY KEY,
+ProductName TEXT UNIQUE NOT NULL,
+Price REAL check(Price>0),
+StockQuantity INTEGER check(StockQuantity>0)
+);
+```
+
 **Output:**
 
-![image](https://github.com/user-attachments/assets/60f0f390-bc54-4beb-ab01-b3da4accc577)
+![image](https://github.com/user-attachments/assets/ed11553e-a229-45b4-abdd-44929c34d248)
+
+MODULE 1 (SEB) GRADE SCREENSHOT:
+![image](https://github.com/user-attachments/assets/75512c43-07e2-411d-884f-ac786fb618a3)
+
 
 ## RESULT
 Thus, the SQL queries to implement different types of constraints and DDL commands have been executed successfully.
